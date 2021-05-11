@@ -36,8 +36,8 @@ def napari_get_reader(path):
         path = path[0]
 
     # if we know we cannot read the file, we immediately return None.
-    #if not path.endswith(".npy"):
-    #    return None
+    if not path.endswith(".xml"):
+        return None
 
     # otherwise we return the *function* that can read ``path``.
     return reader_function
