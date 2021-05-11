@@ -11,7 +11,7 @@ https://napari.org/docs/dev/plugins/for_plugin_developers.html
 """
 import numpy as np
 from napari_plugin_engine import napari_hook_implementation
-from .trackmate_reader import read_trackmate
+from .trackmate_reader import TrackmateModelReader
 
 
 @napari_hook_implementation
@@ -69,11 +69,12 @@ def reader_function(path):
         path = path[0]
 
     data = []
+    add_kwargs = {}  # optional kwargs for the corresponding viewer.add_* method
     if path.endswith(".xml"):
-        data = read_trackmate(path)
-
-    # optional kwargs for the corresponding viewer.add_* method
-    add_kwargs = {}
+        reader = TrackmateModelReader()
+        reader.read(path)
+        data = reader.tracks
+        add_kwargs['graph'] = reader.graph
 
     layer_type = "tracks"  # optional, default is "image"
     return [(data, add_kwargs, layer_type)]
