@@ -74,6 +74,7 @@ target/
 
 # OS
 .DS_Store
+.idea/
 
 # written by setuptools_scm
 */_version.py
