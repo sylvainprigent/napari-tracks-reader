@@ -15,10 +15,15 @@ class TrackmateModelReader:
         self._starting_sources = []
         self._starting_track_idx = []
 
-    def read(self, file):
-        self.file = file
+    def parse(self, tree):
+        """Parse the TrackMate tracks XML model file
 
-        tree = ET.parse(self.file)
+        Parameters
+        ----------
+        tree: ElementTree
+            Tree containing the xml data
+
+        """
         self._root = tree.getroot()
         self.tracks = np.empty((0, 5))
 

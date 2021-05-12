@@ -11,8 +11,8 @@ https://napari.org/docs/dev/plugins/for_plugin_developers.html
 """
 import numpy as np
 from napari_plugin_engine import napari_hook_implementation
-from .trackmate_reader import TrackmateModelReader
-
+from .xml_tracks_parser import XmlTracksParser
+from .csv_tracks_parser import CsvTracksParser
 
 @napari_hook_implementation
 def napari_get_reader(path):
@@ -36,7 +36,7 @@ def napari_get_reader(path):
         path = path[0]
 
     # if we know we cannot read the file, we immediately return None.
-    if not path.endswith(".xml"):
+    if not path.endswith(".xml") and not path.endswith(".csv"):
         return None
 
     # otherwise we return the *function* that can read ``path``.
@@ -70,11 +70,18 @@ def reader_function(path):
 
     data = []
     add_kwargs = {}  # optional kwargs for the corresponding viewer.add_* method
-    if path.endswith(".xml"):
-        reader = TrackmateModelReader()
-        reader.read(path)
-        data = reader.tracks
-        add_kwargs['graph'] = reader.graph
+    if path.endswith('.xml'):
+        parser = XmlTracksParser(path)
+        pdata = parser.parse()
+        if pdata:
+            data = pdata[0]
+            add_kwargs = pdata[1]
+    elif path.endswith('.csv'):
+        parser = CsvTracksParser(path)
+        pdata = parser.parse()
+        if pdata:
+            data = pdata[0]
+            add_kwargs = pdata[1]
 
     layer_type = "tracks"  # optional, default is "image"
     return [(data, add_kwargs, layer_type)]

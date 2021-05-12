@@ -6,7 +6,11 @@
 [![tests](https://github.com/sylvainprigent/napari-tracks-reader/workflows/tests/badge.svg)](https://github.com/sylvainprigent/napari-tracks-reader/actions)
 [![codecov](https://codecov.io/gh/sylvainprigent/napari-tracks-reader/branch/master/graph/badge.svg)](https://codecov.io/gh/sylvainprigent/napari-tracks-reader)
 
-Read tracks from txt (xml, csv) files to napari
+Read tracks from various tracking softwares output files to napari tracks layer.
+Supported formats are:
+- Trakmate model (xml)
+- Icy (xml)
+- TrackContestISBI2012 (xml) 
 
 ----------------------------------
 

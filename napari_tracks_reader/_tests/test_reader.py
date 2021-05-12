@@ -7,7 +7,7 @@ def test_reader(tmp_path):
     """An example of how you might test your plugin."""
 
     # write some fake data using your supported file format
-    my_test_file = str(tmp_path / "FakeTracks_split_merge.xml")
+    my_test_file = str(tmp_path / "FakeTracks_TrackMate.xml")
 
     # try to read it back in
     reader = napari_get_reader(my_test_file)
