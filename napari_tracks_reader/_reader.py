@@ -11,8 +11,8 @@ https://napari.org/docs/dev/plugins/for_plugin_developers.html
 """
 import numpy as np
 from napari_plugin_engine import napari_hook_implementation
-from .xml_tracks_parser import XmlTracksParser
-from .csv_tracks_parser import CsvTracksParser
+from ._reader_function import is_compatible, read_tracks
+
 
 @napari_hook_implementation
 def napari_get_reader(path):
@@ -36,7 +36,7 @@ def napari_get_reader(path):
         path = path[0]
 
     # if we know we cannot read the file, we immediately return None.
-    if not path.endswith(".xml") and not path.endswith(".csv"):
+    if not is_compatible(path):
         return None
 
     # otherwise we return the *function* that can read ``path``.
@@ -68,20 +68,14 @@ def reader_function(path):
     if isinstance(path, list):
         path = path[0]
 
-    data = []
     add_kwargs = {}  # optional kwargs for the corresponding viewer.add_* method
-    if path.endswith('.xml'):
-        parser = XmlTracksParser(path)
-        pdata = parser.parse()
-        if pdata:
-            data = pdata[0]
-            add_kwargs = pdata[1]
-    elif path.endswith('.csv'):
-        parser = CsvTracksParser(path)
-        pdata = parser.parse()
-        if pdata:
-            data = pdata[0]
-            add_kwargs = pdata[1]
+
+    stracks = read_tracks(path)
+    data = stracks.data
+    add_kwargs['properties'] = stracks.properties
+    add_kwargs['graph'] = stracks.graph
+    add_kwargs['metadata'] = stracks.features
+    # add_kwargs['scale'] = stracks.scale
 
     layer_type = "tracks"  # optional, default is "image"
     return [(data, add_kwargs, layer_type)]
