@@ -37,7 +37,7 @@ headers must be `TrackID`, `t`, `x`, `y`, `z`. Note that the header order does n
 
 The raw CSV file is a classical comma-separated values format:
 
-.. code-block:: csv
+.. code-block::
     :linenos:
 
     TrackID,t,x,y,z
