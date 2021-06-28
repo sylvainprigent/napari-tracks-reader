@@ -4,12 +4,14 @@
    contain the root `toctree` directive.
 
 Welcome to napari-tracks-reader's documentation!
-===============================================================
+================================================
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
+
+   description
 
 
 
