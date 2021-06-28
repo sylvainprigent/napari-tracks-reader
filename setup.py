@@ -30,7 +30,7 @@ setup(
     author_email='sylvain.prigent@inria.fr',
     license='GNU GPL v3.0',
     url='https://github.com/sylvainprigent/napari-tracks-reader',
-    description='Read tracks from txt (xml, csv) files to napari',
+    description='Read tracks from various file formats to Napari',
     long_description=read('README.md'),
     long_description_content_type='text/markdown',
     packages=find_packages(),

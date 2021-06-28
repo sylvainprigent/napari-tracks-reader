@@ -8,7 +8,8 @@
 
 Read tracks from various tracking softwares output files to napari tracks layer.
 Supported formats are:
-- Trakmate model (xml)
+- CSV
+- TrakMate model (xml)
 - Icy (xml)
 - TrackContestISBI2012 (xml) 
 
